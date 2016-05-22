@@ -35,9 +35,9 @@ public class Methods extends Object {
 		/************************************************
 		 * Your work goes here
 		 ************************************************/
-
+		
 		// You are free to modify the return statement
-		return false;
+		return !original;
 	}
 
 	/*
@@ -60,6 +60,9 @@ public class Methods extends Object {
 		/************************************************
 		 * Your work goes here
 		 ************************************************/
+		 for(int i = 0; i < numbers.length; i++){
+			 numbers[i] = -numbers[i];
+		 }
 	}
 
 
@@ -90,9 +93,17 @@ public class Methods extends Object {
 		/************************************************
 		 * Your work goes here
 		 ************************************************/
-
+		 boolean[] booleanResults = new boolean[someNumbers.length];
+		 
+		 for(int i = 0; i < someNumbers.length; i++){
+			 if(someNumbers[i] >= floor){
+				 booleanResults[i] = true;
+			 } else{
+				 booleanResults[i] = false;
+			 }
+		 }
 		// You are free to modify the return statement
-		return new boolean [0];
+		return booleanResults;
 	}
 
 	/*
@@ -111,15 +122,34 @@ public class Methods extends Object {
 	 *
 	 * @param someNumbers The array whose maxmimum and minimum
 	 *		  must be recovered
+	 * @param tempInt An int which hold the next value in someNumbers[]
+	 *		  and is used to compare against arrayMinAndMax
 	 * @return an array of length 2: {min, max}
 	 */
 	public int[] getMinAndMax(int[] someNumbers) {
 		/************************************************
 		 * Your work goes here
 		 ************************************************/
+		 //Create arrayMinAndMax[] and set both to someNumbers[0]
+		 int[] arrayMinAndMax = new int[2];
+		 arrayMinAndMax[0] = someNumbers[0];
+		 arrayMinAndMax[1] = someNumbers[0];
+		 int tempInt;
+		 
+		 for(int i = 0; i < someNumbers.length; i++){
+			 tempInt = someNumbers[i];
+			 //Compare tempInt to the min value of arrayMinAndMax
+			 if(tempInt < arrayMinAndMax[0]){
+				 arrayMinAndMax[0] = tempInt;
+			 }
+			 //Compare tempInt to the max value of arrayMinAndMax
+			 if(tempInt > arrayMinAndMax[1]){
+				 arrayMinAndMax[1] = tempInt;
+			 }
+		 }
 
 		// You are free to modify the return statement
-		return new int[2];
+		return arrayMinAndMax;
 	}
 
 
