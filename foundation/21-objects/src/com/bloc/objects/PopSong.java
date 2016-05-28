@@ -15,7 +15,7 @@ class PopSong extends Song {
 	 *	Create the first PopSong constructor
 	/************************************************/
 	PopSong(){
-		this("No ensemble", "No title");
+		this(new Ensemble(), "No title");
 	}
 
 	/*
@@ -31,7 +31,7 @@ class PopSong extends Song {
 	 *	Create the second PopSong constructor
 	/************************************************/
 	PopSong(Ensemble ensemble, String title){
-		this(ensemble, title, 1800);
+		this(ensemble, title, 0);
 	}
 
 	/*
@@ -65,6 +65,9 @@ class PopSong extends Song {
 	 *	Create the fourth PopSong constructor
 	/************************************************/
 	PopSong(Ensemble ensemble, String title, int yearReleased, int weeksOnBillboard){
-		
+		this.mEnsemble = ensemble;
+		this.mTitle = title;
+		this.mYearReleased = yearReleased;
+		mWeeksOnBillboard = weeksOnBillboard;
 	}
 }

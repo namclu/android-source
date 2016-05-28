@@ -45,8 +45,7 @@ class Ensemble extends Object {
 		if(mName == null){
 			mName = artists[0].mFirstName + " " + artists[0].mLastName;
 		}
-		for(int i = 0; i < artists.length; i++){
-			mFirstName = artists[i].
-		}
+		
+		mArtists = artists;
 	}
 }

@@ -20,7 +20,7 @@ class Song extends Object {
 	 *	Create the first Song constructor
 	/************************************************/
 	Song(){
-		this(new Ensemble("No Name", new Artist("Jon", "Bon Jovi"), "No Title"));
+		this(new Ensemble("No Name", new Artist("Jon", "Bon Jovi")), "No Title");
 	}
 
 	/*
@@ -36,7 +36,7 @@ class Song extends Object {
 	 *	Create the second Song constructor
 	/************************************************/
 	Song(Ensemble ensemble, String title){
-		this(ensemble, title, 1800);
+		this(ensemble, title, 0);
 	}
 
 	/*
