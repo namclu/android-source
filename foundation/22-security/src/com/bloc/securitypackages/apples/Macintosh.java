@@ -3,14 +3,16 @@ package com.bloc.securitypackages.apples;
 /************************************************
  *	YOU MAY MODIFY THIS FILE AND/OR ITS LOCATION
 /************************************************/
+import com.bloc.securitypackages.Fruit;
+import com.bloc.securitypackages.colors.Red;
 
-class Macintosh extends Apple {
+public class Macintosh extends Apple {
 
-	Macintosh() {
+	public Macintosh() {
 		super(Macintosh.class.getSimpleName(), 200, new Red(), 0.14d);
 	}
 
-	void bite() {
+	public void bite() {
 		setWeight(getWeight() - 0.01d);
 	}
 
