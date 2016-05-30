@@ -3,9 +3,9 @@ package com.bloc.securitypackages;
 /************************************************
  *	YOU MAY MODIFY THIS FILE AND/OR ITS LOCATION
 /************************************************/
-import com.bloc.securitypackages.colors.*;
+import com.bloc.securitypackages.colors.Color;
 
-public abstract class Fruit extends Object {
+public class Fruit extends Object {
 	// The name of the fruit
 	private String mName;
 	// Number of calories

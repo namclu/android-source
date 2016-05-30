@@ -4,7 +4,7 @@ package com.bloc.securitypackages.apples;
  *	YOU MAY MODIFY THIS FILE AND/OR ITS LOCATION
 /************************************************/
 import com.bloc.securitypackages.Fruit;
-import com.bloc.securitypackages.colors.Red;
+import com.bloc.securitypackages.colors.*;
 
 public class Macintosh extends Apple {
 
@@ -12,7 +12,7 @@ public class Macintosh extends Apple {
 		super(Macintosh.class.getSimpleName(), 200, new Red(), 0.14d);
 	}
 
-	public void bite() {
+	void bite() {
 		setWeight(getWeight() - 0.01d);
 	}
 
