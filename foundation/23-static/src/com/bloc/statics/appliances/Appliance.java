@@ -9,8 +9,7 @@ package com.bloc.statics.appliances;
 import com.bloc.statics.PowerSupply;
 
 public abstract class Appliance extends Object {
-	//PowerSupply mPowerSupply;
-	static PowerSupply sPowerSupply = new PowerSupply();
+	static PowerSupply mPowerSupply;
 
 	String mBrandName;
 	String mSerialNumber;
@@ -60,9 +59,9 @@ public abstract class Appliance extends Object {
 	 * Plug the appliance into the power supply
 	 */
 	public void plugIn() {
-		/* if (sPowerSupply == null) {
+		if (sPowerSupply == null) {
 			sPowerSupply = new PowerSupply();
-		} */
+		}
 		if (!sPowerSupply.hasAppliance(this)) {
 			sPowerSupply.plugAppliance(this);
 		}
