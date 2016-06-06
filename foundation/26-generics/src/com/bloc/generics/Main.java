@@ -13,6 +13,8 @@ public class Main extends Object {
  		 *	Place several Toy objects into toyBox
 		/************************************************/
 		toyBox.addToy(new Toy<ActionFigure>(new ActionFigure()));
+		toyBox.addToy(new Toy<Book>(new Book()));
+		toyBox.addToy(new Toy<Spoon>(new Spoon()));
 
 		assert toyBox.getToyCount() > 0 : "Let's get some toys in that box!";
 		System.out.println("Inside your toybox you've got:");
