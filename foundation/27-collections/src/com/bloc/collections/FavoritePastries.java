@@ -24,12 +24,14 @@ public class FavoritePastries {
 	 *	Use a HashMap to store the relationship
 	 *	between rating and pastry: HashMap<Integer, List<Pastry>>
 	/************************************************/
+	HashMap<List<Pastry>, Integer> mPastryRatingMap;
 
 
 	public FavoritePastries() {
 		/************************************************
  	 	 *	WORK HERE
 		/************************************************/
+		mPastryRatingMap = new HashMap<List<Pastry>, Integer>();
 	}
 
 	/* 
@@ -51,6 +53,20 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE
 		/************************************************/
+		//Take pastry item and add it to List<Pastry> pastries
+		List<Pastry> pastries = new ArrayList<Pastry>();
+		pastries.add(pastry);
+		//Cast int to an Integer
+		Integer ratings = new Integer(rating);
+		
+		//If pastry already exists, find pastry and update its rating
+		if(mPastryRatingMap.containsKey(pastries)){
+			mPastryRatingMap.replace(pastries, ratings);
+		} 
+		//If pastry does not exist, add the pastry and its rating
+		else{
+			mPastryRatingMap.put(pastries, ratings);
+		}
 	}
 
 	/* 
@@ -69,9 +85,18 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		return false;
+		//Take pastry item and add it to List<Pastry> pastries
+		List<Pastry> pastries = new ArrayList<Pastry>();
+		pastries.add(pastry);
+		
+		//If pastry is present, remove it and return true, else return false
+		if(mPastryRatingMap.containsKey(pastries)){
+			mPastryRatingMap.remove(pastries);
+			return true;
+		} else{
+			return false;
+		}
 	}
-
 	/* 
 	 * getRatingForPastry
 	 *
@@ -90,7 +115,16 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		return -1;
+		//Take pastry item and add it to List<Pastry> pastries
+		List<Pastry> pastries = new ArrayList<Pastry>();
+		pastries.add(pastry);
+		
+		//If pastry is present, return the rating for pastry, elsee return -1
+		if(mPastryRatingMap.containsKey(pastries)){
+			return mPastryRatingMap.get(pastries);
+		} else{
+			return -1;
+		}
 	}
 
 	/* 
@@ -113,6 +147,14 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
+		//
+		Set<Pastry> pastries = new Set<Pastry>();
+		
+		//If rating is present, return pastry to Set<Pastry>
+		if(mPastryRatingMap.containsValue(rating)){
+			//Need to add line that takes mPastryRatingMap and adds to entrySet
+			return mPastryRatingMap.entrySet();
+		}
 		return null;
 	}
 
