@@ -25,7 +25,6 @@ public class FavoritePastries {
 	 *	between rating and pastry: HashMap<Integer, List<Pastry>>
 	/************************************************/
 	HashMap<Integer, List<Pastry>> mPastryRatingMap;
-	List<Pastry> pastries = new ArrayList<Pastry>();
 
 
 	public FavoritePastries() {
@@ -33,9 +32,11 @@ public class FavoritePastries {
  	 	 *	WORK HERE
 		/************************************************/
 		mPastryRatingMap = new HashMap<Integer, List<Pastry>>();
-		//Take pastry item and add it to List<Pastry> pastries
-		pastries.add(new Pastry("Cronut"));
-		mPastryRatingMap.put(new Integer(5), pastries);
+		
+		//Create a HashMap and initialize with just the ratings (1-5) and a blank list of pastries
+		for(int i = 1; i > 6; i++){
+			mPastryRatingMap.put(new Integer(i), new List<Pastry>());
+		}
 	}
 
 	/* 
@@ -57,18 +58,12 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE
 		/************************************************/
-		//Take pastry item and add it to List<Pastry> pastries
-		pastries.add(pastry);
-		//Cast int to an Integer
-		Integer ratings = new Integer(rating);
-		
-		//If pastry already exists, find pastry and update its rating
-		if(mPastryRatingMap.containsValue(pastries)){
-			mPastryRatingMap.replace(ratings, pastries);
-		}
-		//If pastry does not exist, add the pastry and its rating
-		else{
-			mPastryRatingMap.put(ratings, pastries);
+		if(pastry.getRatingForPastry == -1){
+			mPastryRatingMap.put(new Integer(rating), new ArrayList<Pastry>(pastry));
+		} else{
+			removePastry(pastry);
+			Collection<Pastry> pastries = getPastriesForRating(rating);
+			mPastryRatingMap.put(new Integer(rating), pastries);
 		}
 	}
 
@@ -162,7 +157,7 @@ public class FavoritePastries {
 		if(mPastryRatingMap.containsKey(ratings)){
 			return mPastryRatingMap.get(ratings).keySet();
 		} else{
-			return null;
+			return ;
 		}
 		
 	}
