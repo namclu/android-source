@@ -34,8 +34,8 @@ public class FavoritePastries {
 		mPastryRatingMap = new HashMap<Integer, List<Pastry>>();
 		
 		//Create a HashMap and initialize with just the ratings (1-5) and a blank list of pastries
-		for(int i = 1; i > 6; i++){
-			mPastryRatingMap.put(new Integer(i), new List<Pastry>());
+		for(int i = 1; i <=5; i++){
+			mPastryRatingMap.put(new Integer(i), new ArrayList<Pastry>());
 		}
 	}
 
@@ -58,13 +58,25 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE
 		/************************************************/
-		if(pastry.getRatingForPastry == -1){
-			mPastryRatingMap.put(new Integer(rating), new ArrayList<Pastry>(pastry));
-		} else{
-			removePastry(pastry);
-			Collection<Pastry> pastries = getPastriesForRating(rating);
-			mPastryRatingMap.put(new Integer(rating), pastries);
+		Collection<Pastry> pastries = new ArrayList<Pastry>();
+		int ratingForPastry = getRatingForPastry(pastry);
+		
+		//Check to see if Pastry already exists
+		if(ratingForPastry > 0){
+			//If Pastry already exists w/ a different rating, update its rating 
+			if(ratingForPastry != rating){
+				//Remove Pastry from the old rating
+				removePastry(pastry);
+				//Add Pastry to new rating
+				pastries = mPastryRatingMap.get(rating);
+				pastries.add(pastry);
+			} else{
+				return;
+			}
 		}
+		//If Pastry does not exist, add Pastry
+		pastries = getPastriesForRating(rating);
+		pastries.add(pastry);
 	}
 
 	/* 
@@ -83,16 +95,18 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		//Take pastry item and add it to List<Pastry> pastries
-		pastries.add(pastry);
+		boolean isRemoved = false;
+		int ratingForPastry = getRatingForPastry(pastry);
+		Collection<Pastry> pastries = new ArrayList<Pastry>();
 		
-		//If pastry is present, remove it and return true, else return false
-        if(mPastryRatingMap.containsValue(pastries)){
-            mPastryRatingMap.remove(pastries);
-            return true;
-        } else{
-            return false;
+		//If pastry is found, remove pastry from rating, and return true
+		if(ratingForPastry != -1){
+			pastries = getPastriesForRating(ratingForPastry);
+			pastries.remove(pastry);
+			isRemoved = true;
 		}
+		//If Pastry not found, return false
+		return isRemoved;
 	}
 
 	/* 
@@ -113,19 +127,12 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		//Take pastry item and add it to List<Pastry> pastries
-		pastries.add(pastry);
-		int pastryRating = 0;
+		int ratingFound = -1;
 		
-		//If pastry exist, return its rating for pastry, else return -1
-		for(Integer i : mPastryRatingMap.keySet()){
-			if(mPastryRatingMap.get(i).equals(pastries)){
-				pastryRating = i;
-			} else{
-				pastryRating = -1;
-			}
-		}
-		return pastryRating;
+		//If Pastry is not found, return -1
+		
+		//If Pastry is found, return its rating
+		return ratingFound;
 	}
 
 	/* 
@@ -148,18 +155,8 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		//Cast int to an Integer
-		Integer ratings = new Integer(rating);
 		
-		
-		
-		//If the rating for a pastry matches, return pastry to keySet
-		if(mPastryRatingMap.containsKey(ratings)){
-			return mPastryRatingMap.get(ratings).keySet();
-		} else{
-			return ;
-		}
-		
+		return null;
 	}
 
 }
