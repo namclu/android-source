@@ -134,7 +134,7 @@ public class FavoritePastries {
 		List<Pastry> pastries;
 		
 		//If Pastry is found, return its rating
-		for(int i = 1; i < 6; i++){
+		for(int i = 1; i <= 5; i++){
 			pastries = mPastryRatingMap.get(new Integer(i));
 			if(pastries.contains(pastry)){
 				ratingFound = i;
@@ -165,12 +165,16 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		//Get List<Patrty> from Hashmap
-		Collection<Pastry> pastries = new ArrayList<Pastry>();
-		pastries = mPastryRatingMap.get(new Integer(rating));
+		//Create Set<Pastry> to store Set of pastries
+		Set<Pastry> pastriesSet = new HashSet<Pastry>();
 		
-		//Assign pastries ArrayList to a Collection
-		Set<Pastry> pastriesSet = new HashSet<Pastry>(pastries);
+		//Add to Set<Pastry> object only if rating is between 1-5
+		if (rating >= 1 && rating <= 5) {
+			//Assign pastries ArrayList to a Collection
+			//pastriesSet = new HashSet<Pastry>(mPastryRatingMap.get(new Integer(rating)));
+			pastriesSet.addAll(mPastryRatingMap.get(new Integer(rating)));
+		}
+		
 		return pastriesSet;
 	}
 
