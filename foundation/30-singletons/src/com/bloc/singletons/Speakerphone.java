@@ -1,5 +1,7 @@
 package com.bloc.singletons;
 
+import java.util.*;
+
 /************************************************
  *	ASSIGNMENT:
  *	Populate this class with the defined methods.
@@ -9,6 +11,17 @@ package com.bloc.singletons;
 /************************************************/
 
 public class Speakerphone extends Object {
+	//Singleton instance
+	private static Speakerphone sSpeakerphone;
+	
+	//Set of Listeners
+	private HashSet<Listener> mListeners;
+	
+	//Private constructor for Listeners
+	private Speakerphone(){
+		mListeners = new HashSet<Listener>();
+	}
+	
 	/*
 	 * get
 	 *
@@ -18,6 +31,14 @@ public class Speakerphone extends Object {
 	 *	ASSIGNMENT:
 	 *	Implement the get method
 	/************************************************/
+	public static Speakerphone get(){
+		//If Speakerphone list has not been created, then create it
+		if(sSpeakerphone == null){
+			sSpeakerphone = new Speakerphone();
+		}
+		//Otherwise, return Speakerphone
+		return sSpeakerphone;
+	}
 
 	/*
 	 * addListener
@@ -31,6 +52,9 @@ public class Speakerphone extends Object {
 	 *	ASSIGNMENT:
 	 *	Implement the addListener method
 	/************************************************/
+	public void addListener(Listener listener){
+		mListeners.add(listener);
+	}
 
 	/*
 	 * removeListener
@@ -44,6 +68,11 @@ public class Speakerphone extends Object {
 	 *	ASSIGNMENT:
 	 *	Implement the removeListener method
 	/************************************************/
+	public void removeListener(Listener listener){
+		if(mListeners.contains(listener)){
+			mListeners.remove(listener);
+		}
+	}
 
 	/*
 	 * removeAll
@@ -56,6 +85,21 @@ public class Speakerphone extends Object {
 	 *	ASSIGNMENT:
 	 *	Implement the removeAll method
 	/************************************************/
+	public void removeAll(){
+		//Create Iterator of type Listener object
+		Iterator<Listener> iterator = mListeners.iterator();
+		
+		//While Iterator still contains objects, loops through
+		//the Listener object and removes object if present
+		while(iterator.hasNext()){
+			removeListener(iterator.next());
+		}
+		/*
+		if(mListeners != null){
+			mListeners.removeAll();
+		}
+		*/
+	}
 
 	/*
 	 * contains
@@ -70,7 +114,10 @@ public class Speakerphone extends Object {
 	/************************************************
 	 *	ASSIGNMENT:
 	 *	Implement the contains method
-	/************************************************/	
+	/************************************************/
+	public boolean contains(Listener listener){
+		return mListeners.contains(listener);
+	}
 
 	/*
 	 * shoutMessage
@@ -84,6 +131,13 @@ public class Speakerphone extends Object {
 	 *	ASSIGNMENT:
 	 *	Implement the shoutMessage method
 	/************************************************/
+	public void shoutMessage(Talker talker){
+		//Create Iterator of type Listener object
+		Iterator<Listener> iterator = mListeners.iterator();
+		while(iterator.hasNext()){
+			iterator.next().onMessageReceived(talker.getMessage());
+		}
+	}
 
 	/*
 	 * shoutMessage
@@ -103,5 +157,11 @@ public class Speakerphone extends Object {
 	 *	ASSIGNMENT:
 	 *	Implement the shoutMessage method
 	/************************************************/
-
+	public void shoutMessage(Talker talker, Class<?> cls){
+		//Create Iterator of type Listener object
+		Iterator<Listener> iterator = mListeners.iterator();
+		while(iterator.hasNext() && cls.isAssignableFrom(talker.getClass())){
+			iterator.next().onMessageReceived(talker.getMessage());
+		}
+	}
 }
