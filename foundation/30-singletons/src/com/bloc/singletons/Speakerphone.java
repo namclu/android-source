@@ -86,19 +86,8 @@ public class Speakerphone extends Object {
 	 *	Implement the removeAll method
 	/************************************************/
 	public void removeAll(){
-		//Create Iterator of type Listener object
-		Iterator<Listener> iterator = mListeners.iterator();
-		
-		//While Iterator still contains objects, loops through
-		//the Listener object and removes object if present
-		while(iterator.hasNext()){
-			removeListener(iterator.next());
-		}
-		/*
-		if(mListeners != null){
-			mListeners.removeAll();
-		}
-		*/
+		//Remove al Listeners
+		mListeners.clear();
 	}
 
 	/*
