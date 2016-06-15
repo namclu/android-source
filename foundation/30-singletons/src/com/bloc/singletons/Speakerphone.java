@@ -149,8 +149,13 @@ public class Speakerphone extends Object {
 	public void shoutMessage(Talker talker, Class<?> cls){
 		//Create Iterator of type Listener object
 		Iterator<Listener> iterator = mListeners.iterator();
-		while(iterator.hasNext() && cls.isAssignableFrom(talker.getClass())){
-			iterator.next().onMessageReceived(talker.getMessage());
+		
+		while(iterator.hasNext()){
+			Listener listener = iterator.next();
+			
+			if(listener.getClass().isAssignableFrom(cls)){
+				listener.onMessageReceived(talker.getMessage());
+			}
 		}
 	}
 }
