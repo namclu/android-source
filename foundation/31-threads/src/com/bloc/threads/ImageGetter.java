@@ -17,7 +17,7 @@ public class ImageGetter extends Thread {
 	 * @param openWhenCompleted if `true`, the image will be opened
 	 *		  as soon it is downloaded, `false` otherwise
 	 */
-	 public URL mUrl;
+	 public String mUrl;
 	 public boolean mOpenWhenCompleted = false;
 	 
 	/************************************************
@@ -26,7 +26,7 @@ public class ImageGetter extends Thread {
  	 *	The variables passed into it must impact the `run()` method's
  	 *	behavior as described above.
 	/************************************************/
-	public ImageGetter(URL url, boolean openWhenCompleted){
+	public ImageGetter(String url, boolean openWhenCompleted){
 		mUrl = url;
 		mOpenWhenCompleted = openWhenCompleted;
 	}
@@ -43,12 +43,12 @@ public class ImageGetter extends Thread {
 			if (existingImage.exists()) {
 				existingImage.delete();
 			}
-			//URL url = new URL("https://www.google.com/images/srpr/logo11w.png");
-			BufferedImage bufferedImage = ImageIO.read(mUrl);
+			URL url = new URL(mUrl);
+			BufferedImage bufferedImage = ImageIO.read(url);
 			File outputfile = new File("google_logo.png");
 			ImageIO.write(bufferedImage, "png", outputfile);
-			if ("/".equals(System.getProperties().getProperty("file.separator"))) {
-				Runtime.getRuntime().exec("open google_logo.png");
+			if (mOpenWhenCompleted) {
+				Runtime.getRuntime().exec("mspaint google_logo.png");
 			} else {
 				Runtime.getRuntime().exec("google_logo.png");
 			}
@@ -60,34 +60,6 @@ public class ImageGetter extends Thread {
 			System.exit(1);
 		}
 		
-		File logo = new File("google_logo.png");
-		//boolean exists = false;
-		try {
-			//exists = logo.exists();
-			mOpenWhenCompleted = logo.exists();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-
-		//if (exists) {
-		if (mOpenWhenCompleted) {
-			System.out.println("/************************/");
-			System.out.println("/*                      */");
-			System.out.println("/*                      */");
-			System.out.println("/* Download that image  */");
-			System.out.println("/* on a separate thread */");
-			System.out.println("/*                      */");
-			System.out.println("/*                      */");
-			System.out.println("/************************/\n");
-		} else {
-			System.out.println("/************************/");
-			System.out.println("/*                      */");
-			System.out.println("/*                      */");
-			System.out.println("/* Nice work, you pass! */");
-			System.out.println("/*                      */");
-			System.out.println("/*                      */");
-			System.out.println("/************************/\n");
-		}
+		
 	}
 }
