@@ -153,12 +153,7 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		Set<Pastry> pastrySet = new HashSet<>();
-
-		if (rating >= 1 && rating <= 5) {
-			pastrySet.addAll(favoritePastriesMap.get(rating));
-		}
-		return pastrySet;
+		return favoritePastriesMap.get(rating);
 	}
 
 }
