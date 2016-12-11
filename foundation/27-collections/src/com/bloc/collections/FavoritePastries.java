@@ -24,12 +24,18 @@ public class FavoritePastries {
 	 *	Use a HashMap to store the relationship
 	 *	between rating and pastry: HashMap<Integer, List<Pastry>>
 	/************************************************/
-
+	static HashMap<Integer, List<Pastry>> favoritePastriesMap;
+	final int MAX_RATING = 5;
 
 	public FavoritePastries() {
 		/************************************************
  	 	 *	WORK HERE
 		/************************************************/
+		favoritePastriesMap = new HashMap<>();
+
+		for (int i = 1; i < MAX_RATING + 1; i++) {
+			favoritePastriesMap.put(i, new ArrayList<Pastry>());
+		}
 	}
 
 	/* 
@@ -51,6 +57,18 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE
 		/************************************************/
+		int pastryRating = getRatingForPastry(pastry);
+		List<Pastry> pastries;
+
+		// If pastry is not found, then add it. Else update pastry with new rating.
+		if (pastryRating == -1) {
+			pastries = favoritePastriesMap.get(rating);
+			pastries.add(pastry);
+		} else {
+			removePastry(pastry);
+			pastries = favoritePastriesMap.get(pastryRating);
+			pastries.add(pastry);
+		}
 	}
 
 	/* 
@@ -69,7 +87,18 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		return false;
+		boolean isRemoved;
+		int pastryRating = getRatingForPastry(pastry);
+		List<Pastry> pastries;
+
+		if (pastryRating == -1) {
+			isRemoved = false;
+		} else {
+			pastries = favoritePastriesMap.get(pastryRating);
+			pastries.remove(pastry);
+			isRemoved = true;
+		}
+		return isRemoved;
 	}
 
 	/* 
@@ -90,7 +119,18 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		return -1;
+		int rating = -1;
+		List<Pastry> pastries;
+
+		for (int index = 1; index < favoritePastriesMap.size() + 1; index++) {
+			pastries = favoritePastriesMap.get(index);
+			for (Pastry pastryToFind: pastries) {
+				if (pastryToFind.equals(pastry)) {
+					rating = index;
+				}
+			}
+		}
+		return rating;
 	}
 
 	/* 
@@ -113,7 +153,12 @@ public class FavoritePastries {
 		/************************************************
  	 	 *	WORK HERE, you must modify the return value
 		/************************************************/
-		return null;
+		Set<Pastry> pastrySet = new HashSet<>();
+
+		if (rating >= 1 && rating <= 5) {
+			pastrySet.addAll(favoritePastriesMap.get(rating));
+		}
+		return pastrySet;
 	}
 
 }
